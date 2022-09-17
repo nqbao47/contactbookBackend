@@ -1,7 +1,6 @@
 {
   "name": "contactbookbackend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js"
@@ -15,6 +14,15 @@
     "express": "^4.18.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19"
-  }
+    "nodemon": "^2.0.20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QuBao47/contactManager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/QuBao47/contactManager/issues"
+  },
+  "homepage": "https://github.com/QuBao47/contactManager#readme",
+  "description": ""
 }
