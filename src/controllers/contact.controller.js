@@ -12,7 +12,7 @@ exports.findOne = (req, res) => {
 
 };
 
-exports.Update = (req, nes) => {
+exports.Update = (req, res) => {
 	return res.send({ message: 'update handLer' });
 
 };
@@ -21,7 +21,7 @@ exports.deLete = (req, res) => {
 return res.send({ message: 'deLete handLer' });
 };
 
-exports.deLeteALL = (req, nes) => {
+exports.deLeteALL = (req, res) => {
 	return res.send({ message: 'deLeteALL handLen' });
 
 };
