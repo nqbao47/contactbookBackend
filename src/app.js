@@ -1,9 +1,9 @@
+
+//step 3
 const express = require('express');
 const cors = require('cors');
 
 const app = express();
-
-const contactController = require('./controllers/contact.controller');
 
 app.use(cors());
 app.use(express.json());
@@ -11,6 +11,10 @@ app.use(express.json());
 app.get('/', (req, res) => {
 	res.json({ message: 'Welcome to contact book application.' });
 });
+
+module.exports = app;
+//step 4
+const contactController = require('./controllers/contact.controller');
 
 app.route('/api/contacts')
 	.get(contactController.findAll)
