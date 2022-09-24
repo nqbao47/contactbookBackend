@@ -60,9 +60,10 @@ exports.findAll = async (req, res, next) => {
         const contactService = new ContactService();
         const { name } = req.query;
         if (name) {
-            contacts = await ContactService.findByName(name);
+            contacts = await contactService.findByName(name);
         } else {
-            contacts = await ContactService.all();
+            contacts = await contactService.all();
+            return next(new ApiError(404, 'Empty database'));
         }
     } catch (error) {
         console.log(error);
@@ -73,12 +74,13 @@ exports.findAll = async (req, res, next) => {
     return res.send(contacts);
 };
 
+
 //Implement findOne handler
 // Find a single contact with an id
-exports.findOne = async (req, res, next) => {
+exports.findOne = async(req, res, next) => {
     try {
         const contactService = new ContactService();
-        const contact = await ContactService.findById(req.params.id);
+        const contact = await contactService.findById(req.params.id);
         if (!contact) {
             return next(new ApiError(404, 'Contact not found'));
         }
@@ -86,8 +88,7 @@ exports.findOne = async (req, res, next) => {
     } catch (error) {
         console.log(error);
         return next(
-            new ApiError(
-                500, `Error retrieving contact with id=${req.params.id}`
+            new ApiError(500, `Error retrieving contact with id=${req.params.id}`
             )
         );
     }
@@ -116,7 +117,55 @@ exports.update = async (req, res, next) => {
 };
 
 //Implement delete handler
+//Delete a contact with the specifies id in the request
+exports.delete = async(req, res, next ) => {
+    try {
+        const contactService = new ContactService();
+        const deleted = await contactService.delete(req.params.id);
+        if (!deleted) {
+            return next(new ApiError(404, 'Contact not found'));
+        }
+        return res.send({ message: 'Contact was deleted successfully'});
+    }
+    catch (error) {
+        console.log(error);
+            return next(new ApiError(500, `Could not deleted contact with id+${req.params.id} `
+        )
+            );
+    }
+};
+
 
 //Implement findAllFavorite handler
+//Find all favorate contacts of a user
+exports.findAllFavorite = async(req, res, next ) => {
+    try {
+        const contactService = new ContactService();
+        const contacts = await contactService.allFavorite();
+            return res.send(contacts);
+    }
+    catch (error) {
+        console.log(error);
+            return next(new ApiError(500, `An error occurred while retrieving favorate contacts`)
+        );
+    }
+};
+
 
 //Implement deleteAll handler
+//Delete all contacts of a user from the database
+exports.deleteAll = async(req, res, next ) => {
+    try {
+        const contactService = new ContactService();
+        const deleted = await contactService.deleteAll();
+        
+            return res.send({
+                message: `${deleted} contacts were deleted successfully`,
+            });
+        } catch (error) {
+            console.log(error);
+            return next(
+                new ApiError(500, 'An error occurred while removing all contacts')
+            );
+        }
+    };

@@ -1,7 +1,7 @@
-
-//step 3
+//step 4
 const express = require('express');
 const cors = require('cors');
+
 
 const app = express();
 
@@ -13,7 +13,8 @@ app.get('/', (req, res) => {
 });
 
 module.exports = app;
-//step 4
+
+//step 5
 const contactController = require('./controllers/contact.controller');
 
 app.route('/api/contacts')
@@ -21,7 +22,8 @@ app.route('/api/contacts')
 	.post(contactController.create)
 	.delete(contactController.deleteAll);
 
-app.route('/api/contacts/favorite').get(contactController.findAllFavorite);
+app.route('/api/contacts/favorite')
+	.get(contactController.findAllFavorite);
 
 app.route('/api/contacts/:id')
 	.get(contactController.findOne)
@@ -30,8 +32,9 @@ app.route('/api/contacts/:id')
 
 module.exports = app;
 
-//step 5
+//step 6
 const ApiError = require('./api-error');
+
 
 app.route('/api/contacts/:id')
 	.get(contactController.findOne)
